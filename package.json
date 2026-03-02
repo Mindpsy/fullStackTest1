@@ -1,0 +1,15 @@
+{
+  "name": "crm-fullstack",
+  "private": true,
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run serve",
+    "build:client": "cd client && npm run build",
+    "lint": "cd server && npm run lint 2>/dev/null; cd ../client && npm run lint",
+    "test": "cd server && npm test"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
+}
