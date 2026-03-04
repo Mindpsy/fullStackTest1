@@ -36,13 +36,13 @@
       item-key="_id"
       class="elevation-0"
     >
-      <template #item.status="{ item }">
+      <template slot="item.status" slot-scope="{ item }">
         <v-chip small :color="statusColor(item.status)">{{ item.status }}</v-chip>
       </template>
-      <template #item.managerId="{ item }">
+      <template slot="item.managerId" slot-scope="{ item }">
         {{ item.managerId?.name || '-' }}
       </template>
-      <template #item.actions="{ item }">
+      <template slot="item.actions" slot-scope="{ item }">
         <v-btn icon small @click="$emit('view', item._id)">
           <v-icon small>mdi-eye</v-icon>
         </v-btn>

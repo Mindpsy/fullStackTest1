@@ -1,9 +1,9 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --only=production
+COPY package.json ./
+RUN npm install --omit=dev
 
 COPY . .
 RUN mkdir -p uploads

@@ -85,7 +85,7 @@ export default {
     async logout() {
       try {
         await authApi.logout();
-      } catch (_) {}
+      } catch (_) { /* ignore */ }
       this.setUser(null);
       this.$router.push('/login');
     },

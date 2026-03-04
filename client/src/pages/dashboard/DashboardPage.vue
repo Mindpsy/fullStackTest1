@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import WidgetStatsCards from '../../widgets/stats-cards/WidgetStatsCards.vue';
 import WidgetRecentList from '../../widgets/recent-list/WidgetRecentList.vue';
 

@@ -11,7 +11,7 @@ const userStr = localStorage.getItem('user');
 if (token && userStr) {
   try {
     store.commit('user/SET_USER', JSON.parse(userStr));
-  } catch (_) {}
+  } catch (_) { /* restore failed */ }
 }
 
 new Vue({

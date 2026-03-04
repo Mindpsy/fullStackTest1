@@ -1,13 +1,15 @@
 <template>
-  <v-app>
-    <app-notifications />
-    <router-view />
-  </v-app>
+  <div id="app-root">
+    <v-app>
+      <app-notifications />
+      <router-view />
+    </v-app>
+  </div>
 </template>
 
 <script>
 import AppNotifications from '../widgets/notifications/AppNotifications.vue';
-import { connectSocket, getSocket, disconnectSocket } from '../shared/api/socket';
+import { connectSocket, disconnectSocket } from '../shared/api/socket';
 
 export default {
   name: 'App',

@@ -12,10 +12,10 @@
         :loading="loading"
         item-key="_id"
       >
-        <template #item.role="{ item }">
+        <template slot="item.role" slot-scope="{ item }">
           <v-chip small>{{ item.role }}</v-chip>
         </template>
-        <template #item.actions="{ item }">
+        <template slot="item.actions" slot-scope="{ item }">
           <v-btn icon small @click="openEdit(item)">
             <v-icon small>mdi-pencil</v-icon>
           </v-btn>

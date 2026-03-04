@@ -48,16 +48,16 @@
       item-key="_id"
       class="elevation-0"
     >
-      <template #item.status="{ item }">
+      <template slot="item.status" slot-scope="{ item }">
         <v-chip small :color="statusColor(item.status)">{{ item.status }}</v-chip>
       </template>
-      <template #item.priority="{ item }">
+      <template slot="item.priority" slot-scope="{ item }">
         <v-chip small :color="priorityColor(item.priority)">{{ item.priority }}</v-chip>
       </template>
-      <template #item.clientId="{ item }">
+      <template slot="item.clientId" slot-scope="{ item }">
         {{ item.clientId?.name || '-' }}
       </template>
-      <template #item.dueDate="{ item }">
+      <template slot="item.dueDate" slot-scope="{ item }">
         {{ formatDateShort(item.dueDate) }}
       </template>
     </v-data-table>
@@ -129,6 +129,7 @@ export default {
     },
   },
   methods: {
+    formatDateShort,
     statusColor(s) {
       const map = { pending: 'orange', in_progress: 'blue', completed: 'green' };
       return map[s] || 'grey';

@@ -1,47 +1,46 @@
 <template>
-  <v-app>
-    <v-main>
-      <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="4">
-            <v-card class="elevation-12">
-              <v-toolbar color="primary" dark flat>
-                <v-toolbar-title>Login</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form ref="form" v-model="valid">
-                  <v-text-field
-                    v-model="email"
-                    label="Email"
-                    type="email"
-                    :rules="[rules.required, rules.email]"
-                    prepend-icon="mdi-email"
-                  />
-                  <v-text-field
-                    v-model="password"
-                    label="Password"
-                    type="password"
-                    :rules="[rules.required]"
-                    prepend-icon="mdi-lock"
-                    @keyup.enter="submit"
-                  />
-                </v-form>
-                <v-alert v-if="error" type="error" dense class="mt-2">{{ error }}</v-alert>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="primary" :loading="loading" @click="submit">Login</v-btn>
-              </v-card-actions>
-              <v-card-actions>
-                <v-spacer />
-                <router-link to="/register">Register</router-link>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <v-main>
+    <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="4">
+          <v-card class="elevation-12">
+            <v-toolbar color="primary" dark flat>
+              <v-toolbar-title>Login</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <v-form ref="form" v-model="valid">
+                <v-text-field
+                  v-model="email"
+                  label="Email"
+                  type="email"
+                  :rules="[rules.required, rules.email]"
+                  prepend-icon="mdi-email"
+                />
+                <v-text-field
+                  v-model="password"
+                  label="Password"
+                  type="password"
+                  :rules="[rules.required]"
+                  prepend-icon="mdi-lock"
+                  @keyup.enter="submit"
+                />
+              </v-form>
+              <v-alert v-if="error" type="error" dense class="mt-2">{{ error }}</v-alert>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn color="primary" :loading="loading" @click="submit">Login</v-btn>
+            </v-card-actions>
+            <v-divider />
+            <v-card-actions>
+              <span class="text-body-2 mr-2">No account?</span>
+              <v-btn text color="primary" to="/register">Register</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
