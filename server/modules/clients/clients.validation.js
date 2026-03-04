@@ -25,7 +25,7 @@ const updateValidation = [
 
 const listValidation = [
   query('page').optional({ values: 'falsy' }).isInt({ min: 1 }),
-  query('limit').optional({ values: 'falsy' }).isInt({ min: 1, max: 100 }),
+  query('limit').optional({ values: 'falsy' }).isInt({ min: 1, max: 500 }),
   query('status').optional({ values: 'falsy' }).isIn(STATUSES),
   query('managerId').optional({ values: 'falsy' }).isMongoId(),
   query('search').optional({ values: 'falsy' }).trim(),

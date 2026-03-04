@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     async loadClients() {
-      const res = await clientsApi.list({ limit: 500 });
+      const res = await clientsApi.list({ limit: 100 });
       this.clientsForSelect = (res.data.data || []).map((c) => ({
         value: c._id,
         text: c.name,
