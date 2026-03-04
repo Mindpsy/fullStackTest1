@@ -125,13 +125,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions('user', ['logout', 'setUser']),
+    ...mapActions('user', { logoutStore: 'logout', setUser: 'setUser' }),
     async logout() {
       try {
         await authApi.logout();
       } catch (_) { /* ignore */ }
-      this.setUser(null);
-      this.$router.push('/login');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.logoutStore();
+      // Full page navigation to avoid guard redirect error; new load sees no token
+      window.location.replace('/login');
     },
   },
 };

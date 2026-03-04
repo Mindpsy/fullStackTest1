@@ -13,6 +13,7 @@
                   v-model="email"
                   label="Email"
                   type="email"
+                  autocomplete="email"
                   :rules="[rules.required, rules.email]"
                   prepend-icon="mdi-email"
                   outlined
@@ -24,6 +25,7 @@
                   v-model="password"
                   label="Password"
                   type="password"
+                  autocomplete="current-password"
                   :rules="[rules.required]"
                   prepend-icon="mdi-lock"
                   outlined
