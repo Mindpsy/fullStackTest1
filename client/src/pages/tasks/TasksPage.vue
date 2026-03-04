@@ -89,6 +89,9 @@ export default {
     this.loadClients();
   },
   methods: {
+    openCreate() {
+      this.dialogCreate = true;
+    },
     async loadClients() {
       const res = await clientsApi.list({ limit: 100 });
       this.clientsForSelect = (res.data.data || []).map((c) => ({
