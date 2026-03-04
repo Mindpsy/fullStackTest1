@@ -24,11 +24,11 @@ const updateValidation = [
 ];
 
 const listValidation = [
-  query('page').optional().isInt({ min: 1 }),
-  query('limit').optional().isInt({ min: 1, max: 100 }),
-  query('status').optional().isIn(STATUSES),
-  query('managerId').optional().isMongoId(),
-  query('search').optional().trim(),
+  query('page').optional({ values: 'falsy' }).isInt({ min: 1 }),
+  query('limit').optional({ values: 'falsy' }).isInt({ min: 1, max: 100 }),
+  query('status').optional({ values: 'falsy' }).isIn(STATUSES),
+  query('managerId').optional({ values: 'falsy' }).isMongoId(),
+  query('search').optional({ values: 'falsy' }).trim(),
 ];
 
 const validate = (req, res, next) => {

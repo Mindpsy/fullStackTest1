@@ -51,11 +51,10 @@ const mutations = {
 
 const actions = {
   async fetchTasks({ commit, state }) {
-    const params = {
-      page: state.page,
-      limit: state.limit,
-      ...state.filters,
-    };
+    const raw = { page: state.page, limit: state.limit, ...state.filters };
+    const params = Object.fromEntries(
+      Object.entries(raw).filter(([, v]) => v !== '' && v != null)
+    );
     const res = await tasksApi.list(params);
     commit('SET_LIST', res.data);
     return res.data;

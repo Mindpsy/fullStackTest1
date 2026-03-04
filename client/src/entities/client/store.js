@@ -38,11 +38,10 @@ const mutations = {
 
 const actions = {
   async fetchClients({ commit, state }) {
-    const params = {
-      page: state.page,
-      limit: state.limit,
-      ...state.filters,
-    };
+    const raw = { page: state.page, limit: state.limit, ...state.filters };
+    const params = Object.fromEntries(
+      Object.entries(raw).filter(([, v]) => v !== '' && v != null)
+    );
     const res = await clientsApi.list(params);
     commit('SET_LIST', res.data);
     return res.data;

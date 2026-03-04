@@ -27,13 +27,13 @@ const updateValidation = [
 const statusValidation = [body('status').isIn(STATUSES).withMessage('Invalid status')];
 
 const listValidation = [
-  query('page').optional().isInt({ min: 1 }),
-  query('limit').optional().isInt({ min: 1, max: 100 }),
-  query('status').optional().isIn(STATUSES),
-  query('priority').optional().isIn(PRIORITIES),
-  query('assigneeId').optional().isMongoId(),
-  query('clientId').optional().isMongoId(),
-  query('search').optional().trim(),
+  query('page').optional({ values: 'falsy' }).isInt({ min: 1 }),
+  query('limit').optional({ values: 'falsy' }).isInt({ min: 1, max: 100 }),
+  query('status').optional({ values: 'falsy' }).isIn(STATUSES),
+  query('priority').optional({ values: 'falsy' }).isIn(PRIORITIES),
+  query('assigneeId').optional({ values: 'falsy' }).isMongoId(),
+  query('clientId').optional({ values: 'falsy' }).isMongoId(),
+  query('search').optional({ values: 'falsy' }).trim(),
 ];
 
 const validate = (req, res, next) => {
