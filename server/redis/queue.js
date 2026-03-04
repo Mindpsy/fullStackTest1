@@ -24,7 +24,7 @@ const setSocketIo = (socketIo) => {
 };
 
 const scheduleReminder = async (taskId, dueDate, taskTitle) => {
-  if (!dueDate) return;
+  if (!dueDate || typeof dueDate.getTime !== 'function' || isNaN(dueDate.getTime())) return;
   const runAt = new Date(dueDate.getTime() - REMINDER_MINUTES * 60 * 1000);
   if (runAt <= new Date()) return;
 

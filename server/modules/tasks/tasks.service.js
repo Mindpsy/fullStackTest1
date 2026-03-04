@@ -78,17 +78,45 @@ const create = async (data, user) => {
   }
 
   const payload = {
-    ...data,
+    title: data.title,
+    description: data.description || undefined,
+    clientId: data.clientId,
     status: STATUSES.includes(data.status) ? data.status : 'pending',
     priority: PRIORITIES.includes(data.priority) ? data.priority : 'medium',
     assigneeId: data.assigneeId || user._id,
   };
-  const task = await Task.create(payload);
-  if (task.dueDate) {
-    await scheduleReminder(task._id, task.dueDate, task.title);
+  if (data.dueDate) {
+    const d = new Date(data.dueDate);
+    if (!isNaN(d.getTime())) payload.dueDate = d;
   }
-  await invalidateStatsCache();
-  return task.populate('clientId', 'name company').populate('assigneeId', 'name email');
+  const created = await Task.create(payload);
+  const taskId = created.id || (created._id && created._id.toString ? created._id.toString() : created._id);
+  try {
+    await invalidateStatsCache();
+  } catch (err) {
+    // Cache invalidation is non-critical
+  }
+  // Re-fetch as plain object via .lean() — avoids any document method (e.g. .populate) on created
+  const raw = await Task.findById(taskId).lean().exec();
+  if (!raw) {
+    const err = new Error('Task not found after create');
+    err.statusCode = 500;
+    throw err;
+  }
+  try {
+    if (raw.dueDate && !isNaN(new Date(raw.dueDate).getTime())) {
+      await scheduleReminder(raw._id, raw.dueDate, raw.title);
+    }
+  } catch (err) {
+    // Redis/Bull may be unavailable
+  }
+  const assignee = user && user._id ? { _id: user._id, name: user.name, email: user.email } : null;
+  const result = {
+    ...raw,
+    clientId: { _id: client._id, name: client.name, company: client.company },
+    assigneeId: assignee,
+  };
+  return result;
 };
 
 const update = async (id, data, user) => {

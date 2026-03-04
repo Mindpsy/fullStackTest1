@@ -94,8 +94,17 @@ export default {
       if (!this.$refs.form.validate()) return;
       this.loading = true;
       try {
-        const payload = { ...this.form };
-        if (payload.dueDate) payload.dueDate = new Date(payload.dueDate).toISOString();
+        const payload = {
+          title: this.form.title,
+          description: this.form.description || undefined,
+          clientId: this.form.clientId,
+          status: this.form.status,
+          priority: this.form.priority,
+        };
+        if (this.form.dueDate) {
+          const d = new Date(this.form.dueDate);
+          if (!isNaN(d.getTime())) payload.dueDate = d.toISOString();
+        }
         await tasksApi.create(payload);
         this.$store.dispatch('notifications/show', { text: 'Task created', color: 'success' });
         this.visible = false;
