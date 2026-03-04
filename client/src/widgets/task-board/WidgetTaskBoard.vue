@@ -1,13 +1,13 @@
 <template>
-  <v-card class="mt-4">
+  <v-card class="mt-4 app-glass-card">
     <v-card-text>
       <v-row v-if="loading">
         <v-col><v-progress-linear indeterminate color="primary" /></v-col>
       </v-row>
       <v-row v-else>
         <v-col v-for="col in columns" :key="col.status" md="4">
-          <v-card outlined class="pa-2">
-            <v-card-title class="text-subtitle-1">{{ col.title }}</v-card-title>
+          <v-card outlined class="pa-2 kanban-column">
+            <v-card-title class="text-subtitle-1 kanban-col-title">{{ col.title }}</v-card-title>
             <draggable
               :list="col.tasks"
               group="tasks"
@@ -18,16 +18,16 @@
                 v-for="task in col.tasks"
                 :key="task._id"
                 :data-id="task._id"
-                class="ma-1 pa-2"
+                class="ma-1 pa-2 kanban-card"
                 outlined
                 small
               >
-                <div class="font-weight-medium">{{ task.title }}</div>
-                <div class="caption">
-                  <v-chip x-small>{{ task.priority }}</v-chip>
+                <div class="font-weight-medium kanban-card-title">{{ task.title }}</div>
+                <div class="caption kanban-card-meta">
+                  <v-chip x-small class="app-chip-teal">{{ task.priority }}</v-chip>
                   {{ task.clientId?.name }}
                 </div>
-                <div class="caption">{{ formatDateShort(task.dueDate) }}</div>
+                <div class="caption kanban-card-date">{{ formatDateShort(task.dueDate) }}</div>
               </v-card>
             </draggable>
           </v-card>
@@ -74,7 +74,18 @@ export default {
 </script>
 
 <style scoped>
-.min-height-200 {
-  min-height: 200px;
+.min-height-200 { min-height: 200px; }
+.kanban-column {
+  background: rgba(18, 30, 41, 0.6) !important;
+  border: 1px solid rgba(64, 224, 208, 0.2) !important;
+  border-radius: 20px !important;
 }
+.kanban-col-title { color: #b2f0e6 !important; }
+.kanban-card {
+  background: rgba(15, 46, 82, 0.5) !important;
+  border-color: rgba(69, 204, 201, 0.25) !important;
+  border-radius: 16px !important;
+}
+.kanban-card-title { color: #e6f1ff !important; }
+.kanban-card-meta, .kanban-card-date { color: #8dd4cc !important; }
 </style>

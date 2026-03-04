@@ -7,6 +7,10 @@
   </div>
 </template>
 
+<style lang="scss">
+@import './styles/global.scss';
+</style>
+
 <script>
 import AppNotifications from '../widgets/notifications/AppNotifications.vue';
 import { connectSocket, disconnectSocket } from '../shared/api/socket';

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="text-h4 mb-4">Users</h1>
-    <v-card>
-      <v-card-title>
+    <h1 class="text-h4 mb-4 app-heading-gradient">Users</h1>
+    <v-card class="app-glass-card">
+      <v-card-title class="app-card-title">
         <v-spacer />
         <v-btn color="primary" @click="dialogCreate = true">+ Add user</v-btn>
       </v-card-title>
@@ -13,7 +13,7 @@
         item-key="_id"
       >
         <template slot="item.role" slot-scope="{ item }">
-          <v-chip small>{{ item.role }}</v-chip>
+          <v-chip small class="app-chip-teal">{{ item.role }}</v-chip>
         </template>
         <template slot="item.actions" slot-scope="{ item }">
           <v-btn icon small @click="openEdit(item)">
@@ -23,8 +23,8 @@
       </v-data-table>
     </v-card>
     <v-dialog v-model="dialogCreate" max-width="500" persistent>
-      <v-card>
-        <v-card-title>Add user</v-card-title>
+      <v-card class="app-glass-card">
+        <v-card-title class="app-card-title">Add user</v-card-title>
         <v-card-text>
           <v-form ref="formCreate">
             <v-text-field v-model="createForm.email" label="Email" type="email" :rules="[r.required]" />
@@ -41,8 +41,8 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="dialogEdit" max-width="500" persistent>
-      <v-card v-if="editUser">
-        <v-card-title>Edit user</v-card-title>
+      <v-card v-if="editUser" class="app-glass-card">
+        <v-card-title class="app-card-title">Edit user</v-card-title>
         <v-card-text>
           <v-form ref="formEdit">
             <v-text-field v-model="editForm.name" label="Name" :rules="[r.required]" />

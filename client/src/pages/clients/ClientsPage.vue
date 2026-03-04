@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-h4 mb-4">Clients</h1>
+    <h1 class="text-h4 mb-4 app-heading-gradient">Clients</h1>
     <widget-client-table
       :items="clients"
       :total="total"

@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="d-flex flex-wrap align-center">
+  <v-card class="app-glass-card">
+    <v-card-title class="d-flex flex-wrap align-center app-card-title py-3">
       <v-text-field
         v-model="localFilters.search"
         placeholder="Search..."
@@ -37,7 +37,7 @@
       class="elevation-0"
     >
       <template slot="item.status" slot-scope="{ item }">
-        <v-chip small :color="statusColor(item.status)">{{ item.status }}</v-chip>
+        <v-chip small class="app-chip-teal">{{ item.status }}</v-chip>
       </template>
       <template slot="item.managerId" slot-scope="{ item }">
         {{ item.managerId?.name || '-' }}
@@ -121,11 +121,6 @@ export default {
       },
     },
   },
-  methods: {
-    statusColor(s) {
-      const map = { active: 'green', inactive: 'grey', lead: 'orange' };
-      return map[s] || 'grey';
-    },
-  },
+  methods: {},
 };
 </script>

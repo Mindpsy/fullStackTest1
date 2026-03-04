@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-h4 mb-4">Tasks</h1>
-    <v-tabs v-model="tab">
+    <h1 class="text-h4 mb-4 app-heading-gradient">Tasks</h1>
+    <v-tabs v-model="tab" class="app-tabs-teal">
       <v-tab>Table</v-tab>
       <v-tab>Kanban</v-tab>
     </v-tabs>

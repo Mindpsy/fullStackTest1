@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-h4 mb-4">Profile</h1>
-    <v-card max-width="500">
+    <h1 class="text-h4 mb-4 app-heading-gradient">Profile</h1>
+    <v-card max-width="500" class="app-glass-card">
       <v-card-text>
         <v-form ref="form" v-model="valid">
           <v-avatar size="80" class="mb-4">

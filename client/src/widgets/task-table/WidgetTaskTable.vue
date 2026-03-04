@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="d-flex flex-wrap align-center">
+  <v-card class="app-glass-card">
+    <v-card-title class="d-flex flex-wrap align-center app-card-title py-3">
       <v-text-field
         v-model="localFilters.search"
         placeholder="Search..."
@@ -49,10 +49,10 @@
       class="elevation-0"
     >
       <template slot="item.status" slot-scope="{ item }">
-        <v-chip small :color="statusColor(item.status)">{{ item.status }}</v-chip>
+        <v-chip small class="app-chip-teal">{{ item.status }}</v-chip>
       </template>
       <template slot="item.priority" slot-scope="{ item }">
-        <v-chip small :color="priorityColor(item.priority)">{{ item.priority }}</v-chip>
+        <v-chip small class="app-chip-teal">{{ item.priority }}</v-chip>
       </template>
       <template slot="item.clientId" slot-scope="{ item }">
         {{ item.clientId?.name || '-' }}
@@ -130,14 +130,6 @@ export default {
   },
   methods: {
     formatDateShort,
-    statusColor(s) {
-      const map = { pending: 'orange', in_progress: 'blue', completed: 'green' };
-      return map[s] || 'grey';
-    },
-    priorityColor(p) {
-      const map = { low: 'grey', medium: 'blue', high: 'red' };
-      return map[p] || 'grey';
-    },
   },
 };
 </script>

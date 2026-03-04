@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI,Roboto,system-ui,sans-serif&display=swap');
+
+.v-application {
+  font-family: 'Segoe UI', Roboto, system-ui, sans-serif !important;
+  background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%) !important;
+  color: #e6f1ff;
+}
+
+.v-application .primary {
+  background-color: #2dd4bf !important;
+  border-color: #2dd4bf !important;
+}
+
+.v-application .primary--text {
+  color: #2dd4bf !important;
+  caret-color: #2dd4bf !important;
+}
+
+.app-glass-card {
+  background: rgba(18, 30, 41, 0.7) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 28px !important;
+  border: 1px solid rgba(64, 224, 208, 0.2);
+  box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.6);
+}
+
+.app-page-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+.app-card {
+  background: rgba(12, 23, 33, 0.75) !important;
+  backdrop-filter: blur(8px);
+  border-radius: 28px !important;
+  border: 1px solid rgba(69, 204, 201, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s;
+}
+
+.app-card:hover {
+  border-color: #40c4aa;
+  background: rgba(16, 34, 44, 0.85) !important;
+}
+
+.app-card-title { color: #b2f0e6 !important; }
+.app-card-value { color: #e6f1ff !important; }
+.app-muted { color: #7eb8b0 !important; }
+
+.app-chip-teal {
+  background: #1e3a3a !important;
+  color: #c2f0e6 !important;
+  border: 0.5px solid #479e9b;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+.app-heading-gradient {
+  background: linear-gradient(135deg, #a0e7e5, #b4f0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.v-text-field.v-input--is-focused .v-input__slot::after,
+.v-text-field .v-input__slot::before {
+  border-color: rgba(64, 224, 208, 0.5) !important;
+}
+
+.v-btn.primary {
+  border-radius: 24px !important;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.v-toolbar__title,
+.v-list-item__title {
+  color: #b2f0e6 !important;
+}
+
+.v-data-table {
+  background: transparent !important;
+}
+
+.v-data-table thead th {
+  color: #8dd4cc !important;
+  font-weight: 600;
+  border-bottom: 1px solid #2c5c5a !important;
+}
+
+.v-data-table tbody tr {
+  background: rgba(12, 23, 33, 0.5) !important;
+}
+
+.v-data-table tbody tr:hover {
+  background: rgba(16, 34, 44, 0.7) !important;
+}
+
+.v-data-table tbody td {
+  color: #d1e9ff !important;
+  border-bottom: 1px solid rgba(47, 107, 104, 0.3) !important;
+}
+
+.v-input input,
+.v-input label,
+.v-input__slot input {
+  color: #e6f1ff !important;
+}
+
+.v-label {
+  color: rgba(230, 241, 255, 0.8) !important;
+}
+
+.v-messages {
+  color: #ff9f8f !important;
+}
+
+.v-snack__content {
+  border-radius: 20px !important;
+}
+
+.app-tabs-teal .v-tab {
+  color: #8dd4cc !important;
+}
+.app-tabs-teal .v-tab--active {
+  color: #2dd4bf !important;
+}
+.app-tabs-teal .v-tabs-slider { background-color: #2dd4bf !important; }
+.app-tabs-teal .v-tabs-bar { background: transparent !important; }
+.app-tabs-teal .v-item-group { background: transparent !important; }
