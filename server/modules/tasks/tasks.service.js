@@ -1,4 +1,4 @@
-const { Task, Client } = require('../../common/db/models');
+const { Task, Client, User } = require('../../common/db/models');
 const { STATUSES } = require('../../common/constants/taskStatus');
 const { PRIORITIES } = require('../../common/constants/priority');
 const { ADMIN } = require('../../common/constants/roles');
@@ -120,13 +120,13 @@ const create = async (data, user) => {
 };
 
 const update = async (id, data, user) => {
-  const task = await Task.findById(id).populate('clientId');
+  const task = await Task.findById(id);
   if (!task) {
     const err = new Error('Task not found');
     err.statusCode = 404;
     throw err;
   }
-  const client = await Client.findById(task.clientId._id || task.clientId);
+  const client = await Client.findById(task.clientId);
   if (!client) {
     const err = new Error('Client not found');
     err.statusCode = 404;
@@ -140,11 +140,31 @@ const update = async (id, data, user) => {
 
   Object.assign(task, data);
   if (task.dueDate) {
-    await scheduleReminder(task._id, task.dueDate, task.title);
+    try {
+      await scheduleReminder(task._id, task.dueDate, task.title);
+    } catch (err) {
+      // Redis may be unavailable
+    }
   }
   await task.save();
-  await invalidateStatsCache();
-  return task.populate('clientId', 'name company').populate('assigneeId', 'name email');
+  try {
+    await invalidateStatsCache();
+  } catch (err) {
+    // non-critical
+  }
+  const raw = await Task.findById(id).lean().exec();
+  if (!raw) {
+    const err = new Error('Task not found after update');
+    err.statusCode = 500;
+    throw err;
+  }
+  const assigneeDoc = raw.assigneeId ? await User.findById(raw.assigneeId).select('name email').lean() : null;
+  const assignee = assigneeDoc ? { _id: assigneeDoc._id, name: assigneeDoc.name, email: assigneeDoc.email } : null;
+  return {
+    ...raw,
+    clientId: { _id: client._id, name: client.name, company: client.company },
+    assigneeId: assignee,
+  };
 };
 
 const updateStatus = async (id, status, user) => {
@@ -153,13 +173,18 @@ const updateStatus = async (id, status, user) => {
     err.statusCode = 400;
     throw err;
   }
-  const task = await Task.findById(id).populate('clientId');
+  const task = await Task.findById(id);
   if (!task) {
     const err = new Error('Task not found');
     err.statusCode = 404;
     throw err;
   }
-  const client = await Client.findById(task.clientId._id || task.clientId);
+  const client = await Client.findById(task.clientId);
+  if (!client) {
+    const err = new Error('Client not found');
+    err.statusCode = 404;
+    throw err;
+  }
   if (user.role !== ADMIN && client.managerId.toString() !== user._id.toString()) {
     const err = new Error('Access denied');
     err.statusCode = 403;
@@ -167,8 +192,25 @@ const updateStatus = async (id, status, user) => {
   }
   task.status = status;
   await task.save();
-  await invalidateStatsCache();
-  return task.populate('clientId', 'name company').populate('assigneeId', 'name email');
+  try {
+    await invalidateStatsCache();
+  } catch (err) {
+    // non-critical
+  }
+  // Return plain object without .populate() (avoids "populate is not a function")
+  const raw = await Task.findById(id).lean().exec();
+  if (!raw) {
+    const err = new Error('Task not found after update');
+    err.statusCode = 500;
+    throw err;
+  }
+  const assigneeDoc = raw.assigneeId ? await User.findById(raw.assigneeId).select('name email').lean() : null;
+  const assignee = assigneeDoc ? { _id: assigneeDoc._id, name: assigneeDoc.name, email: assigneeDoc.email } : null;
+  return {
+    ...raw,
+    clientId: { _id: client._id, name: client.name, company: client.company },
+    assigneeId: assignee,
+  };
 };
 
 const remove = async (id, user) => {

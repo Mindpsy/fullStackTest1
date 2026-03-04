@@ -45,6 +45,8 @@ import FeatureTaskFormDialog from '../../features/task-form/FeatureTaskFormDialo
 import { clientsApi } from '../../entities/client/api';
 import { tasksApi } from '../../entities/task/api';
 
+const KANBAN_FETCH_LIMIT = 100; // keep ≤ backend max (500) to avoid 400
+
 export default {
   name: 'TasksPage',
   components: {
@@ -113,7 +115,7 @@ export default {
     async fetchKanbanTasks() {
       this.loadingKanban = true;
       try {
-        const res = await tasksApi.list({ limit: 100 });
+        const res = await tasksApi.list({ limit: KANBAN_FETCH_LIMIT });
         this.kanbanTasks = res.data.data || [];
       } finally {
         this.loadingKanban = false;
