@@ -113,7 +113,7 @@ export default {
     async fetchKanbanTasks() {
       this.loadingKanban = true;
       try {
-        const res = await tasksApi.list({ limit: 200 });
+        const res = await tasksApi.list({ limit: 100 });
         this.kanbanTasks = res.data.data || [];
       } finally {
         this.loadingKanban = false;

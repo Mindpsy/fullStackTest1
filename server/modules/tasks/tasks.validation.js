@@ -28,7 +28,7 @@ const statusValidation = [body('status').isIn(STATUSES).withMessage('Invalid sta
 
 const listValidation = [
   query('page').optional({ values: 'falsy' }).isInt({ min: 1 }),
-  query('limit').optional({ values: 'falsy' }).isInt({ min: 1, max: 100 }),
+  query('limit').optional({ values: 'falsy' }).isInt({ min: 1, max: 500 }),
   query('status').optional({ values: 'falsy' }).isIn(STATUSES),
   query('priority').optional({ values: 'falsy' }).isIn(PRIORITIES),
   query('assigneeId').optional({ values: 'falsy' }).isMongoId(),
